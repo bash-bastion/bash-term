@@ -1,6 +1,6 @@
 # bash-tty
 
-`tput` is slow as a dog. Terminfo database from ncurses version `6.3`
+`tput` is slow as a dog due to subshell and exec overhead. Use functions like `tty.clear_screen` instead
 
 ## Installation
 
@@ -12,8 +12,7 @@ basalt add 'hyperupcall/bash-tty'
 
 ## Roadmap
 
-- Handle terminal attributes with formatting
-- Dont codegen for terminals older than your mother
+- Add layer that accepts same strings are `tput`
 
 ## References
 
