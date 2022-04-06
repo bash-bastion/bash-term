@@ -10,56 +10,28 @@ btput() {
 	case $1 in
 		# controlling cursor
 		sc)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput sc
-			else
-				:
-			fi
+			term.cursor_savepos
 			;;
 		rc)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput rc
-			else
-				:
-			fi
+			term.cursor_unsavepos
 			;;
 		home)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput home
-			else
-				:
-			fi
+			tput home
 			;;
 		cup)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput cup
-			else
-				:
-			fi
+			term.cursor_to "$1" "$2"
 			;;
 		cud1)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput cud1
-			else
-				:
-			fi
+			tput cud1
 			;;
 		cuu1)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput cuu1
-			else
-				:
-			fi
+			tput cuu1
 			;;
 		civis)
-			tput civis
+			term.cursor_hide
 			;;
 		cnorm)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput cnorm
-			else
-				:
-			fi
+			term.cursor_show
 			;;
 
 		# terminal attributes
@@ -70,67 +42,31 @@ btput() {
 
 		# text effects
 		bold)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput bold
-			else
-				:
-			fi
+			tput bold
 			;;
 		smul)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput smul
-			else
-				:
-			fi
+			tput smul
 			;;
 		rmul)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput rmul
-			else
-				:
-			fi
+			tput rmul
 			;;
 		rev)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput rev
-			else
-					:
-			fi
+			tput revi
 			;;
 		blink)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				btput blink
-			else
-				:
-			fi
+			btput blink
 			;;
 		invis)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				itput invis
-			else
-				:
-			fi
+			itput invis
 			;;
 		smso)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput smso
-			else
-				:
-			fi
+			tput smso
 			;;
 		rmso)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput rmso
-			else
-				:
-			fi
+			tput rmso
 			;;
 		sgr0)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput sgr0
-			else
-				:
-			fi
+			tput sgr0
 			;;
 		setaf)
 			case $2 in
@@ -145,55 +81,27 @@ btput() {
 			esac
 			;;
 		dim)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput dim
-			else
-				:
-			fi
+			tput dim
 			;;
 
 		# clearing screen
 		smcup)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput smcup
-			else
-				:
-			fi
+			term.screen_save
 			;;
 		rmcup)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput rmcup
-			else
-				:
-			fi
+			term.screen_restore
 			;;
 		el)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput el
-			else
-				term.erase_line_end
-			fi
+			term.erase_line_end
 			;;
 		el1)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput el1
-			else
-				term.erase_line_start
-			fi
+			term.erase_line_start
 			;;
 		el2)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput el2
-			else
-				term.erase_line
-			fi
+			term.erase_line
 			;;
 		clear)
-			if [[ -v BASH_TTY_FORCE_TPUT ]]; then
-				tput clear
-			else
-				:
-			fi
+			tput clear
 			;;
 		*)
 			return

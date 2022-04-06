@@ -71,7 +71,7 @@ term.cursor_savepos() {
 }
 
 # @noargs
-term.cursor_unsavepos() {
+term.cursor_restorepos() {
 	unset -v REPLY
 
 	REPLY=$'\e[u'
@@ -85,7 +85,7 @@ term.cursor_save() {
 }
 
 # @noargs
-term.cursor_unsave() {
+term.cursor_restore() {
 	unset -v REPLY
 
 	REPLY=$'\e[8'
@@ -200,10 +200,26 @@ term.erase_screen() {
 }
 
 # @noargs
-term.erase_saved_lines() {
+term.erase_saved_lines() { # TODO: better name?
 	unset -v REPLY
 
 	REPLY=$'\e[3J'
+}
+
+
+# -------------------------------------------------------- #
+#                          Screen                          #
+# -------------------------------------------------------- #
+term.screen_save() {
+	unset -v REPLY
+
+	REPLY=$'\e[?1049h'
+}
+
+term.screen_restore() {
+	unset -v REPLY
+
+	REPLY=$'\e[?1049l'
 }
 
 
