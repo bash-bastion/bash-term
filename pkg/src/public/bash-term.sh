@@ -4,7 +4,7 @@
 #                          Cursor                          #
 # -------------------------------------------------------- #
 
-tty.cursor_to() {
+term.cursor_to() {
 	unset -v REPLY
 	local row="${1:-0}"
 	local column="${2:-0}"
@@ -13,42 +13,42 @@ tty.cursor_to() {
 	printf -v REPLY '\033[%s;%sH' "$row" "$column"
 }
 
-tty.cursor_up() {
+term.cursor_up() {
 	unset -v REPLY
 	local count="${1:-1}"
 
 	printf -v REPLY '\033[%sA' "$count"
 }
 
-tty.cursor_down() {
+term.cursor_down() {
 	unset -v REPLY
 	local count="${1:-1}"
 
 	printf -v REPLY '\033[%sB' "$count"
 }
 
-tty.cursor_forward() {
+term.cursor_forward() {
 	unset -v REPLY
 	local count="${1:-1}"
 
 	printf -v REPLY '\033[%sC' "$count"
 }
 
-tty.cursor_backward() {
+term.cursor_backward() {
 	unset -v REPLY
 	local count="${1:-1}"
 
 	printf -v REPLY '\033[%sD' "$count"
 }
 
-tty.cursor_line_next() {
+term.cursor_line_next() {
 	unset -v REPLY
 	local count="${1:-1}"
 
 	printf -v REPLY '\033[%sE' "$count"
 }
 
-tty.cursor_line_prev() {
+term.cursor_line_prev() {
 	unset -v REPLY
 	local count="${1:-1}"
 
@@ -56,7 +56,7 @@ tty.cursor_line_prev() {
 }
 
 # TODO: name, default?
-tty.cursor_tocolumn() {
+term.cursor_tocolumn() {
 	unset -v REPLY
 	local count="${1:-1}"
 
@@ -64,42 +64,42 @@ tty.cursor_tocolumn() {
 }
 
 # @noargs
-tty.cursor_savepos() {
+term.cursor_savepos() {
 	unset -v REPLY
 
 	REPLY=$'\e[s'
 }
 
 # @noargs
-tty.cursor_unsavepos() {
+term.cursor_unsavepos() {
 	unset -v REPLY
 
 	REPLY=$'\e[u'
 }
 
 # @noargs
-tty.cursor_save() {
+term.cursor_save() {
 	unset -v REPLY
 
 	REPLY=$'\e[7'
 }
 
 # @noargs
-tty.cursor_unsave() {
+term.cursor_unsave() {
 	unset -v REPLY
 
 	REPLY=$'\e[8'
 }
 
 # @noargs
-tty.cursor_hide() {
+term.cursor_hide() {
 	unset -v REPLY
 
 	REPLY=$'\e[?25l'
 }
 
 # @noargs
-tty.cursor_show() {
+term.cursor_show() {
 	unset -v REPLY
 
 	REPLY=$'\e[?25h'
@@ -111,14 +111,14 @@ tty.cursor_show() {
 # -------------------------------------------------------- #
 
 # @noargs
-tty.scroll_down() {
+term.scroll_down() {
 	unset -v REPLY
 
 	REPLY=$'\e[D'
 }
 
 # @noargs
-tty.scroll_up() {
+term.scroll_up() {
 	unset -v REPLY
 
 	REPLY=$'\e[M'
@@ -130,21 +130,21 @@ tty.scroll_up() {
 # -------------------------------------------------------- #
 
 # @noargs
-tty.tab_set() {
+term.tab_set() {
 	unset -v REPLY
 
 	REPLY=$'\e[H'
 }
 
 # @noargs
-tty.tab_clear() {
+term.tab_clear() {
 	unset -v REPLY
 
 	REPLY=$'\e[g'
 }
 
 # @noargs
-tty.tab_clearall() {
+term.tab_clearall() {
 	unset -v REPLY
 
 	REPLY=$'\e[3g'
@@ -156,7 +156,7 @@ tty.tab_clearall() {
 # -------------------------------------------------------- #
 
 # @noargs
-tty.erase_line_end() {
+term.erase_line_end() {
 	unset -v REPLY
 
 	# Same as '\e[0K'
@@ -164,21 +164,21 @@ tty.erase_line_end() {
 }
 
 # @noargs
-tty.erase_line_start() {
+term.erase_line_start() {
 	unset -v REPLY
 
 	REPLY=$'\e[1K'
 }
 
 # @noargs
-tty.erase_line() {
+term.erase_line() {
 	unset -v REPLY
 
 	REPLY=$'\e[2K'
 }
 
 # @noargs
-tty.erase_screen_end() {
+term.erase_screen_end() {
 	unset -v REPLY
 
 	# Same as '\e[0J'
@@ -186,21 +186,21 @@ tty.erase_screen_end() {
 }
 
 # @noargs
-tty.erase_screen_start() {
+term.erase_screen_start() {
 	unset -v REPLY
 
 	REPLY=$'\e[1J'
 }
 
 # @noargs
-tty.erase_screen() {
+term.erase_screen() {
 	unset -v REPLY
 
 	REPLY=$'\e[2J'
 }
 
 # @noargs
-tty.erase_saved_lines() {
+term.erase_saved_lines() {
 	unset -v REPLY
 
 	REPLY=$'\e[3J'
@@ -211,13 +211,13 @@ tty.erase_saved_lines() {
 #                       Miscellaneous                      #
 # -------------------------------------------------------- #
 
-tty.beep() {
+term.beep() {
 	unset -v REPLY
 
 	REPLY=$'\a'
 }
 
-tty.hyperlink() {
+term.hyperlink() {
 	unset -v REPLY
 	local text="$1"
 	local url="$2"

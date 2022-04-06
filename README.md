@@ -1,14 +1,18 @@
 # bash-tty
 
-`tput` is slow as a dog due to subshell and exec overhead. Use functions like `tty.clear_screen` instead
+`tput` is slow as a dog due to subshell and exec overhead. Use functions like `term.clear_screen` instead
 
 ## Installation
 
 Use [Basalt](https://github.com/hyperupcall/basalt), a Bash package manager, to add this project as a dependency
 
 ```sh
-basalt add 'hyperupcall/bash-tty'
+basalt add hyperupcall/bash-tty
 ```
+
+## Usage
+
+- `BASH_TTY_FORCE_TPUT`
 
 ## Roadmap
 
