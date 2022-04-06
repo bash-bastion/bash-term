@@ -107,8 +107,6 @@ btput() {
 			return
 	esac
 
-	if ! [[ -v BASH_TTY_FORCE_TPUT ]]; then
-		# shellcheck disable=SC2059
-		printf "$REPLY"
-	fi
+	# shellcheck disable=SC2059
+	printf "$REPLY"
 }

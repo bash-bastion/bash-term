@@ -1,5 +1,5 @@
 # shellcheck shell=bash
 
-task.gen() {
-	deno run --allow-read --allow-write ./scripts/parse.ts --write
+task.docs() {
+	shdoc < './pkg/src/public/bash-term.sh' > './docs/api-term.md'
 }

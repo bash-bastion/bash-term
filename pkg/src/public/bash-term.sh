@@ -4,6 +4,9 @@
 #                          Cursor                          #
 # -------------------------------------------------------- #
 
+# Move the cursor position to a supplied row and column. Both default to `0` if not supplied
+# @arg $1 int row
+# @arg $1 int column
 term.cursor_to() {
 	unset -v REPLY
 	local row="${1:-0}"
@@ -13,6 +16,8 @@ term.cursor_to() {
 	printf -v REPLY '\033[%s;%sH' "$row" "$column"
 }
 
+# @description Moves the cursor up. Defaults to `1` if not supplied
+# @arg $1 int count
 term.cursor_up() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -20,6 +25,8 @@ term.cursor_up() {
 	printf -v REPLY '\033[%sA' "$count"
 }
 
+# @description Moves the cursor down. Defaults to `1` if not supplied
+# @arg $1 int count
 term.cursor_down() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -27,6 +34,8 @@ term.cursor_down() {
 	printf -v REPLY '\033[%sB' "$count"
 }
 
+# @description Moves the cursor forward. Defaults to `1` if not supplied
+# @arg $1 int count
 term.cursor_forward() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -34,6 +43,8 @@ term.cursor_forward() {
 	printf -v REPLY '\033[%sC' "$count"
 }
 
+# @description Moves the cursor backwards. Defaults to `1` if not supplied
+# @arg $1 int count
 term.cursor_backward() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -41,6 +52,8 @@ term.cursor_backward() {
 	printf -v REPLY '\033[%sD' "$count"
 }
 
+# @description Moves the cursor to the next line. Defaults to `1` if not supplied
+# @arg $1 int count
 term.cursor_line_next() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -48,6 +61,8 @@ term.cursor_line_next() {
 	printf -v REPLY '\033[%sE' "$count"
 }
 
+# @description Moves the cursor to the previous line. Defaults to `1` if not supplied
+# @arg $1 int count
 term.cursor_line_prev() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -56,6 +71,7 @@ term.cursor_line_prev() {
 }
 
 # TODO: name, default?
+# @arg $1 int count
 term.cursor_tocolumn() {
 	unset -v REPLY
 	local count="${1:-1}"
@@ -227,12 +243,17 @@ term.screen_restore() {
 #                       Miscellaneous                      #
 # -------------------------------------------------------- #
 
+# @description Construct a beep
+# @noargs
 term.beep() {
 	unset -v REPLY
 
 	REPLY=$'\a'
 }
 
+# @description Construct hyperlink
+# @arg $1 string text
+# @arg $2 string url
 term.hyperlink() {
 	unset -v REPLY
 	local text="$1"
