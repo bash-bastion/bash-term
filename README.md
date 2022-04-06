@@ -1,6 +1,10 @@
 # bash-tty
 
-`tput` is slow as a dog due to subshell and exec overhead. Use functions like `term.clear_screen` instead
+Bash library for terminal escape sequences
+
+## Summary
+
+This library was created to be a _fast_ alternative to `tput`. It includes a `btput` function to emulate the most common features of `tput` (without exec overhead). It also sports a more intuitive interface with names like `term.erase_line`, etc.
 
 ## Installation
 
@@ -9,14 +13,6 @@ Use [Basalt](https://github.com/hyperupcall/basalt), a Bash package manager, to 
 ```sh
 basalt add hyperupcall/bash-tty
 ```
-
-## Usage
-
-- `BASH_TTY_FORCE_TPUT`
-
-## Roadmap
-
-- Add layer that accepts same strings are `tput`
 
 ## References
 
