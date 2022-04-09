@@ -1,4 +1,4 @@
-# bash-tty
+# bash-term
 
 Bash library for terminal escape sequences
 

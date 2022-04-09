@@ -1,7 +1,7 @@
 [package]
 type = 'bash'
-name = 'bash-tty'
-slug = 'tty'
+name = 'bash-term'
+slug = ['term', 'btput']
 version = '0.3.0'
 authors = ['Edwin Kofler <edwin@kofler.dev>']
 description = ''
