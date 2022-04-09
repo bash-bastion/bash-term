@@ -259,5 +259,5 @@ term.hyperlink() {
 	local text="$1"
 	local url="$2"
 
-	printf -v REPLY '\e]8;;%s\e\\%s\e]8;;\e\\\n' "$url" "$text"
+	printf -v REPLY '\e]8;;%s\e\\%s\e]8;;\e\\' "$url" "$text"
 }
