@@ -1,10 +1,10 @@
 [package]
 type = 'bash'
 name = 'bash-term'
+description = 'Bash library for terminal escape sequences'
 slug = ['term', 'btput']
 version = '0.3.0'
 authors = ['Edwin Kofler <edwin@kofler.dev>']
-description = ''
 
 [run]
 dependencies = []
