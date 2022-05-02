@@ -14,7 +14,12 @@ Use [Basalt](https://github.com/hyperupcall/basalt), a Bash package manager, to 
 basalt add hyperupcall/bash-term
 ```
 
+## Awknowledgements
+
+- Function docstring descriptions were taken from [justjavac/deno_ansi](https://github.com/justjavac/deno_ansi)
+
 ## References
 
 - [vtasni.html](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
 - [asnci-escapes](https://github.com/sindresorhus/ansi-escapes/blob/main/index.js)
+- [ANSIcode.html](https://www.real-world-systems.com/docs/ANSIcode.html)
