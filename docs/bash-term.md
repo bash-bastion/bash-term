@@ -30,6 +30,10 @@
 * [term.tab_clearall()](#termtab_clearall)
 * [term.beep()](#termbeep)
 * [term.hyperlink()](#termhyperlink)
+* [term.bold()](#termbold)
+* [term.italic()](#termitalic)
+* [term.underline()](#termunderline)
+* [term.strikethrough()](#termstrikethrough)
 
 ### term.cursor_to()
 
@@ -221,4 +225,36 @@ Construct hyperlink
 
 * **$1** (string): text
 * **$2** (string): url
+
+### term.bold()
+
+Construct bold
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.italic()
+
+Construct italic
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.underline()
+
+Construct underline
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.strikethrough()
+
+Construct strikethrough
+
+#### Arguments
+
+* **$1** (string): text
 
