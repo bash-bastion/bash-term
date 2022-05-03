@@ -306,3 +306,40 @@ term.hyperlink() {
 
 	printf -v REPLY '\e]8;;%s\a%s\e]8;;\a' "$url" "$text"
 }
+
+# @description Construct bold
+# @arg $1 string text
+term.bold() {
+	unset -v REPLY
+	local text="$1"
+
+	printf -v REPLY '\e[1m%s\e0m' "$text"
+}
+
+# @description Construct italic
+# @arg $1 string text
+term.italic() {
+	unset -v REPLY
+	local text="$1"
+
+	printf -v REPLY '\e[3m%s\e0m' "$text"
+}
+
+# @description Construct underline
+# @arg $1 string text
+term.underline() {
+	unset -v REPLY
+	local text="$1"
+
+	printf -v REPLY '\e[4m%s\e0m' "$text"
+}
+
+# @description Construct strikethrough
+# @arg $1 string text
+term.strikethrough() {
+	unset -v REPLY
+	local text="$1"
+
+	printf -v REPLY '\e[9m%s\e0m' "$text"
+}
+

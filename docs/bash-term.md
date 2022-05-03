@@ -1,35 +1,35 @@
 ## Index
 
-- [term.cursor_to()](#termcursor_to)
-- [term.cursor_moveto()](#termcursor_moveto)
-- [term.cursor_up()](#termcursor_up)
-- [term.cursor_down()](#termcursor_down)
-- [term.cursor_forward()](#termcursor_forward)
-- [term.cursor_backward()](#termcursor_backward)
-- [term.cursor_line_next()](#termcursor_line_next)
-- [term.cursor_line_prev()](#termcursor_line_prev)
-- [term.cursor_horizontal()](#termcursor_horizontal)
-- [term.cursor_savepos()](#termcursor_savepos)
-- [term.cursor_restorepos()](#termcursor_restorepos)
-- [term.cursor_save()](#termcursor_save)
-- [term.cursor_restore()](#termcursor_restore)
-- [term.cursor_hide()](#termcursor_hide)
-- [term.cursor_show()](#termcursor_show)
-- [term.cursor_getpos()](#termcursor_getpos)
-- [term.erase_line_end()](#termerase_line_end)
-- [term.erase_line_start()](#termerase_line_start)
-- [term.erase_line()](#termerase_line)
-- [term.erase_screen_end()](#termerase_screen_end)
-- [term.erase_screen_start()](#termerase_screen_start)
-- [term.erase_screen()](#termerase_screen)
-- [term.erase_saved_lines()](#termerase_saved_lines)
-- [term.scroll_down()](#termscroll_down)
-- [term.scroll_up()](#termscroll_up)
-- [term.tab_set()](#termtab_set)
-- [term.tab_clear()](#termtab_clear)
-- [term.tab_clearall()](#termtab_clearall)
-- [term.beep()](#termbeep)
-- [term.hyperlink()](#termhyperlink)
+* [term.cursor_to()](#termcursor_to)
+* [term.cursor_moveto()](#termcursor_moveto)
+* [term.cursor_up()](#termcursor_up)
+* [term.cursor_down()](#termcursor_down)
+* [term.cursor_forward()](#termcursor_forward)
+* [term.cursor_backward()](#termcursor_backward)
+* [term.cursor_line_next()](#termcursor_line_next)
+* [term.cursor_line_prev()](#termcursor_line_prev)
+* [term.cursor_horizontal()](#termcursor_horizontal)
+* [term.cursor_savepos()](#termcursor_savepos)
+* [term.cursor_restorepos()](#termcursor_restorepos)
+* [term.cursor_save()](#termcursor_save)
+* [term.cursor_restore()](#termcursor_restore)
+* [term.cursor_hide()](#termcursor_hide)
+* [term.cursor_show()](#termcursor_show)
+* [term.cursor_getpos()](#termcursor_getpos)
+* [term.erase_line_end()](#termerase_line_end)
+* [term.erase_line_start()](#termerase_line_start)
+* [term.erase_line()](#termerase_line)
+* [term.erase_screen_end()](#termerase_screen_end)
+* [term.erase_screen_start()](#termerase_screen_start)
+* [term.erase_screen()](#termerase_screen)
+* [term.erase_saved_lines()](#termerase_saved_lines)
+* [term.scroll_down()](#termscroll_down)
+* [term.scroll_up()](#termscroll_up)
+* [term.tab_set()](#termtab_set)
+* [term.tab_clear()](#termtab_clear)
+* [term.tab_clearall()](#termtab_clearall)
+* [term.beep()](#termbeep)
+* [term.hyperlink()](#termhyperlink)
 
 ### term.cursor_to()
 
@@ -37,8 +37,8 @@ Move the cursor position to a supplied row and column. Both default to `0` if no
 
 #### Arguments
 
-- **$1** (int): row
-- **$1** (int): column
+* **$1** (int): row
+* **$1** (int): column
 
 ### term.cursor_moveto()
 
@@ -46,8 +46,8 @@ Moves cursor position to a supplied _relative_ row and column. Both default to `
 
 #### Arguments
 
-- **$1** (int): row
-- **$1** (int): column
+* **$1** (int): row
+* **$1** (int): column
 
 ### term.cursor_up()
 
@@ -55,7 +55,7 @@ Moves the cursor up. Defaults to `1` if not supplied
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_down()
 
@@ -63,7 +63,7 @@ Moves the cursor down. Defaults to `1` if not supplied
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_forward()
 
@@ -71,7 +71,7 @@ Moves the cursor forward. Defaults to `1` if not supplied
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_backward()
 
@@ -79,7 +79,7 @@ Moves the cursor backwards. Defaults to `1` if not supplied
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_line_next()
 
@@ -87,7 +87,7 @@ Moves the cursor to the next line. Defaults to `1` if not supplied
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_line_prev()
 
@@ -95,7 +95,7 @@ Moves the cursor to the previous line. Defaults to `1` if not supplied
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_horizontal()
 
@@ -103,7 +103,7 @@ Moves the cursor ?
 
 #### Arguments
 
-- **$1** (int): count
+* **$1** (int): count
 
 ### term.cursor_savepos()
 
@@ -219,5 +219,6 @@ Construct hyperlink
 
 #### Arguments
 
-- **$1** (string): text
-- **$2** (string): url
+* **$1** (string): text
+* **$2** (string): url
+
