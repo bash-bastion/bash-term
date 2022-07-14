@@ -313,7 +313,7 @@ term.bold() {
 	unset -v REPLY
 	local text="$1"
 
-	printf -v REPLY '\e[1m%s\e0m' "$text"
+	printf -v REPLY '\e[1m%s\e[0m' "$text"
 }
 
 # @description Construct italic
@@ -322,7 +322,7 @@ term.italic() {
 	unset -v REPLY
 	local text="$1"
 
-	printf -v REPLY '\e[3m%s\e0m' "$text"
+	printf -v REPLY '\e[3m%s\e[0m' "$text"
 }
 
 # @description Construct underline
@@ -331,7 +331,7 @@ term.underline() {
 	unset -v REPLY
 	local text="$1"
 
-	printf -v REPLY '\e[4m%s\e0m' "$text"
+	printf -v REPLY '\e[4m%s\e[0m' "$text"
 }
 
 # @description Construct strikethrough
@@ -340,6 +340,6 @@ term.strikethrough() {
 	unset -v REPLY
 	local text="$1"
 
-	printf -v REPLY '\e[9m%s\e0m' "$text"
+	printf -v REPLY '\e[9m%s\e[0m' "$text"
 }
 
