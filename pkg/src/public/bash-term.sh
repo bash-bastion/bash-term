@@ -270,16 +270,253 @@ term.tab_clearall() {
 # -------------------------------------------------------- #
 #                          Screen                          #
 # -------------------------------------------------------- #
+
+# @description Save screen
+# @noargs
 term.screen_save() {
 	unset -v REPLY
 
 	REPLY=$'\e[?1049h'
 }
 
+# @description Restore screen
+# @noargs
 term.screen_restore() {
 	unset -v REPLY
 
 	REPLY=$'\e[?1049l'
+}
+
+
+
+# -------------------------------------------------------- #
+#                           Color                          #
+# -------------------------------------------------------- #
+
+# @description Construct reset
+# @arg $1 string text
+term.style_reset() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY '\e[0m%s' "$text"
+}
+
+# @description Construct bold
+# @arg $1 string text
+term.style_bold() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1m%s%s" "$text" "$end"
+}
+
+# @description Construct dim
+# @arg $1 string text
+term.style_dim() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[2m%s%s" "$text" "$end"
+}
+
+# @description Construct italic
+# @arg $1 string text
+term.style_italic() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[3m%s%s" "$text" "$end"
+}
+
+# @description Construct underline
+# @arg $1 string text
+term.style_underline() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[4m%s%s" "$text" "$end"
+}
+
+# @description Construct inverse
+# @arg $1 string text
+term.style_inverse() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[7m%s%s" "$text" "$end"
+}
+
+# @description Construct hidden
+# @arg $1 string text
+term.style_hidden() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[8m%s%s" "$text" "$end"
+}
+
+# @description Construct strikethrough
+# @arg $1 string text
+term.style_strikethrough() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[9m%s%s" "$text" "$end"
+}
+
+# @description Construct hyperlink
+# @arg $1 string text
+# @arg $2 string url
+term.style_hyperlink() {
+	local text="$1"
+	local url="$2"
+
+	printf -v REPLY '\e]8;;%s\a%s\e]8;;\a' "$url" "$text"
+}
+
+# @description Construct black color
+# @arg $1 string text
+term.color_black() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[30m%s%s" "$text" "$end"
+}
+
+# @description Construct red color
+# @arg $1 string text
+term.color_red() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[31m%s%s" "$text" "$end"
+}
+
+# @description Construct green color
+# @arg $1 string text
+term.color_green() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[32m%s%s" "$text" "$end"
+}
+
+# @description Construct orange color
+# @arg $1 string text
+term.color_orange() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[33m%s%s" "$text" "$end"
+}
+
+# @description Construct blue color
+# @arg $1 string text
+term.color_blue() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[34m%s%s" "$text" "$end"
+}
+
+# @description Construct purple color
+# @arg $1 string text
+term.color_purple() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[35m%s%s" "$text" "$end"
+}
+
+# @description Construct cyan color
+# @arg $1 string text
+term.color_cyan() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[36m%s%s" "$text" "$end"
+}
+
+# @description Construct light gray color
+# @arg $1 string text
+term.color_light_gray() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[37m%s%s" "$text" "$end"
+}
+
+# @description Construct dark gray color
+# @arg $1 string text
+term.color_dark_gray() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;30m%s%s" "$text" "$end"
+}
+
+# @description Construct light red color
+# @arg $1 string text
+term.color_light_red() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;31m%s%s" "$text" "$end"
+}
+
+# @description Construct light green color
+# @arg $1 string text
+term.color_light_green() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;32m%s%s" "$text" "$end"
+}
+
+# @description Construct yellow color
+# @arg $1 string text
+term.color_yellow() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;33m%s%s" "$text" "$end"
+}
+
+# @description Construct light blue color
+# @arg $1 string text
+term.color_light_blue() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;34m%s%s" "$text" "$end"
+}
+
+# @description Construct light purple color
+# @arg $1 string text
+term.color_light_purple() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;35m%s%s" "$text" "$end"
+}
+
+# @description Construct light cyan color
+# @arg $1 string text
+term.color_light_cyan() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;36m%s%s" "$text" "$end"
+}
+
+# @description Construct white color
+# @arg $1 string text
+term.color_white() {
+	local {text,end}=
+	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+
+	printf -v REPLY "\e[1;37m%s%s" "$text" "$end"
 }
 
 
@@ -296,50 +533,40 @@ term.beep() {
 	REPLY=$'\a'
 }
 
-# @description Construct hyperlink
+
+
+# -------------------------------------------------------- #
+#                        Deprecated                        #
+# -------------------------------------------------------- #
+
+# @description (DEPRECATED) Construct hyperlink
 # @arg $1 string text
 # @arg $2 string url
 term.hyperlink() {
-	unset -v REPLY
-	local text="$1"
-	local url="$2"
-
-	printf -v REPLY '\e]8;;%s\a%s\e]8;;\a' "$url" "$text"
+	term.style_hyperlink "$@"
 }
 
-# @description Construct bold
+# @description (DEPRECATED) Construct bold
 # @arg $1 string text
 term.bold() {
-	unset -v REPLY
-	local text="$1"
-
-	printf -v REPLY '\e[1m%s\e[0m' "$text"
+	term.style_bold "$@"
 }
 
-# @description Construct italic
+# @description (DEPRECATED) Construct italic
 # @arg $1 string text
 term.italic() {
-	unset -v REPLY
-	local text="$1"
-
-	printf -v REPLY '\e[3m%s\e[0m' "$text"
+	term.style_italic "$@"
 }
 
-# @description Construct underline
+# @description (DEPRECATED) Construct underline
 # @arg $1 string text
 term.underline() {
-	unset -v REPLY
-	local text="$1"
-
-	printf -v REPLY '\e[4m%s\e[0m' "$text"
+	term.style_underline "$@"
 }
 
-# @description Construct strikethrough
+# @description (DEPRECATED) Construct strikethrough
 # @arg $1 string text
 term.strikethrough() {
-	unset -v REPLY
-	local text="$1"
-
-	printf -v REPLY '\e[9m%s\e[0m' "$text"
+	term.style_strikethrough "$@"
 }
 

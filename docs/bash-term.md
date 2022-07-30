@@ -28,6 +28,33 @@
 * [term.tab_set()](#termtab_set)
 * [term.tab_clear()](#termtab_clear)
 * [term.tab_clearall()](#termtab_clearall)
+* [term.screen_save()](#termscreen_save)
+* [term.screen_restore()](#termscreen_restore)
+* [term.style_reset()](#termstyle_reset)
+* [term.style_bold()](#termstyle_bold)
+* [term.style_dim()](#termstyle_dim)
+* [term.style_italic()](#termstyle_italic)
+* [term.style_underline()](#termstyle_underline)
+* [term.style_inverse()](#termstyle_inverse)
+* [term.style_hidden()](#termstyle_hidden)
+* [term.style_strikethrough()](#termstyle_strikethrough)
+* [term.style_hyperlink()](#termstyle_hyperlink)
+* [term.color_black()](#termcolor_black)
+* [term.color_red()](#termcolor_red)
+* [term.color_green()](#termcolor_green)
+* [term.color_orange()](#termcolor_orange)
+* [term.color_blue()](#termcolor_blue)
+* [term.color_purple()](#termcolor_purple)
+* [term.color_cyan()](#termcolor_cyan)
+* [term.color_light_gray()](#termcolor_light_gray)
+* [term.color_dark_gray()](#termcolor_dark_gray)
+* [term.color_light_red()](#termcolor_light_red)
+* [term.color_light_green()](#termcolor_light_green)
+* [term.color_yellow()](#termcolor_yellow)
+* [term.color_light_blue()](#termcolor_light_blue)
+* [term.color_light_purple()](#termcolor_light_purple)
+* [term.color_light_cyan()](#termcolor_light_cyan)
+* [term.color_white()](#termcolor_white)
 * [term.beep()](#termbeep)
 * [term.hyperlink()](#termhyperlink)
 * [term.bold()](#termbold)
@@ -211,13 +238,83 @@ _Function has no arguments._
 
 _Function has no arguments._
 
-### term.beep()
+### term.screen_save()
 
-Construct a beep
+Save screen
 
 _Function has no arguments._
 
-### term.hyperlink()
+### term.screen_restore()
+
+Restore screen
+
+_Function has no arguments._
+
+### term.style_reset()
+
+Construct reset
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_bold()
+
+Construct bold
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_dim()
+
+Construct dim
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_italic()
+
+Construct italic
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_underline()
+
+Construct underline
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_inverse()
+
+Construct inverse
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_hidden()
+
+Construct hidden
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_strikethrough()
+
+Construct strikethrough
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.style_hyperlink()
 
 Construct hyperlink
 
@@ -226,9 +323,152 @@ Construct hyperlink
 * **$1** (string): text
 * **$2** (string): url
 
+### term.color_black()
+
+Construct black color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_red()
+
+Construct red color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_green()
+
+Construct green color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_orange()
+
+Construct orange color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_blue()
+
+Construct blue color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_purple()
+
+Construct purple color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_cyan()
+
+Construct cyan color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_light_gray()
+
+Construct light gray color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_dark_gray()
+
+Construct dark gray color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_light_red()
+
+Construct light red color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_light_green()
+
+Construct light green color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_yellow()
+
+Construct yellow color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_light_blue()
+
+Construct light blue color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_light_purple()
+
+Construct light purple color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_light_cyan()
+
+Construct light cyan color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.color_white()
+
+Construct white color
+
+#### Arguments
+
+* **$1** (string): text
+
+### term.beep()
+
+Construct a beep
+
+_Function has no arguments._
+
+### term.hyperlink()
+
+(DEPRECATED) Construct hyperlink
+
+#### Arguments
+
+* **$1** (string): text
+* **$2** (string): url
+
 ### term.bold()
 
-Construct bold
+(DEPRECATED) Construct bold
 
 #### Arguments
 
@@ -236,7 +476,7 @@ Construct bold
 
 ### term.italic()
 
-Construct italic
+(DEPRECATED) Construct italic
 
 #### Arguments
 
@@ -244,7 +484,7 @@ Construct italic
 
 ### term.underline()
 
-Construct underline
+(DEPRECATED) Construct underline
 
 #### Arguments
 
@@ -252,7 +492,7 @@ Construct underline
 
 ### term.strikethrough()
 
-Construct strikethrough
+(DEPRECATED) Construct strikethrough
 
 #### Arguments
 
