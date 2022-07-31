@@ -14,9 +14,18 @@ Use [Basalt](https://github.com/hyperupcall/basalt), a Bash package manager, to 
 basalt add hyperupcall/bash-term
 ```
 
-## Acknowledgements
+## Usage
 
-- [justjavac/deno_ansi](https://github.com/justjavac/deno_ansi)
+See [Tweet](https://twitter.com/hyperupcall/status/1553612233388670976)
+
+```sh
+# -d means 'done'; that is, reset the style at the end of the string (same as `term.style_reset`)
+# -p means 'print'; that is, print the value of "$REPLY" that it sets
+term.color_light_purple 'four'
+term.style_strikethrough "$REPLY"
+term.style_inverse "$REPLY"
+term.style_underline -dp "$REPLY"
+```
 
 ## References
 
