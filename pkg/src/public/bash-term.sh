@@ -9,11 +9,17 @@
 # @arg $1 int column
 term.cursor_to() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 2 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local row="${1:-0}"
 	local column="${2:-0}"
 
 	# Note that 'f' instead of 'H' is the 'force' variant
-	printf -v REPLY '\033[%s;%sH' "$row" "$column"
+	term.private_util_set_reply2 "$flag_print" '\033[%s;%sH' "$row" "$column"
 }
 
 # @description Moves cursor position to a supplied _relative_ row and column. Both default to `0` if not supplied (FIXME: implement)
@@ -27,54 +33,90 @@ term.cursor_moveto() {
 # @arg $1 int count
 term.cursor_up() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sA' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sA' "$count"
 }
 
 # @description Moves the cursor down. Defaults to `1` if not supplied
 # @arg $1 int count
 term.cursor_down() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sB' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sB' "$count"
 }
 
 # @description Moves the cursor forward. Defaults to `1` if not supplied
 # @arg $1 int count
 term.cursor_forward() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sC' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sC' "$count"
 }
 
 # @description Moves the cursor backwards. Defaults to `1` if not supplied
 # @arg $1 int count
 term.cursor_backward() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sD' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sD' "$count"
 }
 
 # @description Moves the cursor to the next line. Defaults to `1` if not supplied
 # @arg $1 int count
 term.cursor_line_next() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sE' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sE' "$count"
 }
 
 # @description Moves the cursor to the previous line. Defaults to `1` if not supplied
 # @arg $1 int count
 term.cursor_line_prev() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sF' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sF' "$count"
 }
 
 # FIXME: docs
@@ -82,9 +124,15 @@ term.cursor_line_prev() {
 # @arg $1 int count
 term.cursor_horizontal() {
 	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local count="${1:-1}"
 
-	printf -v REPLY '\033[%sG' "$count"
+	term.private_util_set_reply2 "$flag_print" '\033[%sG' "$count"
 }
 
 # @description Saves the current cursor position
@@ -92,11 +140,17 @@ term.cursor_horizontal() {
 term.cursor_savepos() {
 	unset -v REPLY
 
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	if [ "$TERM_PROGRAM" = 'Apple_Terminal' ]; then
 		REPLY=$'\u001B7'
 	else
 		REPLY=$'\e[s'
 	fi
+	[ "$flag_print" = 'yes' ] && printf '%s\n' "$REPLY"
 }
 
 # @description Restores cursor to the last saved position
@@ -104,11 +158,17 @@ term.cursor_savepos() {
 term.cursor_restorepos() {
 	unset -v REPLY
 
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	if [ "$TERM_PROGRAM" = 'Apple_Terminal' ]; then
 		REPLY=$'\u001B8'
 	else
 		REPLY=$'\e[u'
 	fi
+	[ "$flag_print" = 'yes' ] && printf '%s\n' "$REPLY"
 }
 
 # FIXME: docs
@@ -117,7 +177,12 @@ term.cursor_restorepos() {
 term.cursor_save() {
 	unset -v REPLY
 
-	REPLY=$'\e[7'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[7'
 }
 
 # FIXME: docs
@@ -126,7 +191,12 @@ term.cursor_save() {
 term.cursor_restore() {
 	unset -v REPLY
 
-	REPLY=$'\e[8'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[8'
 }
 
 # @description Hides the cursor
@@ -134,7 +204,12 @@ term.cursor_restore() {
 term.cursor_hide() {
 	unset -v REPLY
 
-	REPLY=$'\e[?25l'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[?25l'
 }
 
 # @description Shows the cursor
@@ -142,7 +217,13 @@ term.cursor_hide() {
 term.cursor_show() {
 	unset -v REPLY
 
-	REPLY=$'\e[?25h'
+
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[?25h'
 }
 
 # @description Reports the cursor position to the application as (as though typed at the keyboard)
@@ -150,7 +231,12 @@ term.cursor_show() {
 term.cursor_getpos() {
 	unset -v REPLY
 
-	REPLY=$'\e[6n'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[6n'
 }
 
 
@@ -164,8 +250,13 @@ term.cursor_getpos() {
 term.erase_line_end() {
 	unset -v REPLY
 
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	# Same as '\e[0K'
-	REPLY=$'\e[K'
+	term.private_util_set_reply "$flag_print" $'\e[K'
 }
 
 # @description Erase from the current cursor position to the start of the current line
@@ -173,7 +264,12 @@ term.erase_line_end() {
 term.erase_line_start() {
 	unset -v REPLY
 
-	REPLY=$'\e[1K'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[1K'
 }
 
 # @description Erase the entire current line
@@ -181,7 +277,12 @@ term.erase_line_start() {
 term.erase_line() {
 	unset -v REPLY
 
-	REPLY=$'\e[2K'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[2K'
 }
 
 # @description Erase the screen from the current line down to the bottom of the screen
@@ -189,8 +290,14 @@ term.erase_line() {
 term.erase_screen_end() {
 	unset -v REPLY
 
+
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	# Same as '\e[0J'
-	REPLY=$'\e[J'
+	term.private_util_set_reply "$flag_print" $'\e[J'
 }
 
 # @description Erase the screen from the current line up to the top of the screen
@@ -198,7 +305,12 @@ term.erase_screen_end() {
 term.erase_screen_start() {
 	unset -v REPLY
 
-	REPLY=$'\e[1J'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[1J'
 }
 
 # @description Erase the screen and move the cursor the top left position
@@ -206,14 +318,24 @@ term.erase_screen_start() {
 term.erase_screen() {
 	unset -v REPLY
 
-	REPLY=$'\e[2J'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[2J'
 }
 
 # @noargs
 term.erase_saved_lines() { # TODO: better name?
 	unset -v REPLY
 
-	REPLY=$'\e[3J'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[3J'
 }
 
 
@@ -226,16 +348,26 @@ term.erase_saved_lines() { # TODO: better name?
 term.scroll_down() {
 	unset -v REPLY
 
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	# REPLY=$'\e[T'
-	REPLY=$'\e[D'
+	term.private_util_set_reply "$flag_print" $'\e[D'
 }
 
 # @noargs
 term.scroll_up() {
 	unset -v REPLY
 
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	# REPLY=$'\e[S'
-	REPLY=$'\e[M'
+	term.private_util_set_reply "$flag_print" $'\e[M'
 }
 
 
@@ -248,21 +380,36 @@ term.scroll_up() {
 term.tab_set() {
 	unset -v REPLY
 
-	REPLY=$'\e[H'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[H'
 }
 
 # @noargs
 term.tab_clear() {
 	unset -v REPLY
 
-	REPLY=$'\e[g'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[g'
 }
 
 # @noargs
 term.tab_clearall() {
 	unset -v REPLY
 
-	REPLY=$'\e[3g'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[3g'
 }
 
 
@@ -276,7 +423,12 @@ term.tab_clearall() {
 term.screen_save() {
 	unset -v REPLY
 
-	REPLY=$'\e[?1049h'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[?1049h'
 }
 
 # @description Restore screen
@@ -284,7 +436,12 @@ term.screen_save() {
 term.screen_restore() {
 	unset -v REPLY
 
-	REPLY=$'\e[?1049l'
+	local flag_print='no' end=
+	term.private_util_validate_p 0 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	term.private_util_set_reply "$flag_print" $'\e[?1049l'
 }
 
 
@@ -296,227 +453,378 @@ term.screen_restore() {
 # @description Construct reset
 # @arg $1 string text
 term.style_reset() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY '\e[0m%s' "$text"
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 '\e[0m%s' "$text"
 }
 
 # @description Construct bold
 # @arg $1 string text
 term.style_bold() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1m%s%s" "$text" "$end"
 }
 
 # @description Construct dim
 # @arg $1 string text
 term.style_dim() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[2m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[2m%s%s" "$text" "$end"
 }
 
 # @description Construct italic
 # @arg $1 string text
 term.style_italic() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[3m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[3m%s%s" "$text" "$end"
 }
 
 # @description Construct underline
 # @arg $1 string text
 term.style_underline() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[4m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[4m%s%s" "$text" "$end"
 }
 
 # @description Construct inverse
 # @arg $1 string text
 term.style_inverse() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[7m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[7m%s%s" "$text" "$end"
 }
 
 # @description Construct hidden
 # @arg $1 string text
 term.style_hidden() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[8m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[8m%s%s" "$text" "$end"
 }
 
 # @description Construct strikethrough
 # @arg $1 string text
 term.style_strikethrough() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[9m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[9m%s%s" "$text" "$end"
 }
 
 # @description Construct hyperlink
 # @arg $1 string text
 # @arg $2 string url
 term.style_hyperlink() {
+	unset -v REPLY
+
+	local flag_print='no' end=
+	term.private_util_validate_p 2 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
 	local text="$1"
 	local url="$2"
 
-	printf -v REPLY '\e]8;;%s\a%s\e]8;;\a' "$url" "$text"
+	term.private_util_set_reply2 '\e]8;;%s\a%s\e]8;;\a' "$url" "$text"
 }
 
 # @description Construct black color
 # @arg $1 string text
 term.color_black() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[30m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[30m%s%s" "$text" "$end"
 }
 
 # @description Construct red color
 # @arg $1 string text
 term.color_red() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[31m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[31m%s%s" "$text" "$end"
 }
 
 # @description Construct green color
 # @arg $1 string text
 term.color_green() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[32m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[32m%s%s" "$text" "$end"
 }
 
 # @description Construct orange color
 # @arg $1 string text
 term.color_orange() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[33m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[33m%s%s" "$text" "$end"
 }
 
 # @description Construct blue color
 # @arg $1 string text
 term.color_blue() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[34m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[34m%s%s" "$text" "$end"
 }
 
 # @description Construct purple color
 # @arg $1 string text
 term.color_purple() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[35m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[35m%s%s" "$text" "$end"
 }
 
 # @description Construct cyan color
 # @arg $1 string text
 term.color_cyan() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[36m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[36m%s%s" "$text" "$end"
 }
 
 # @description Construct light gray color
 # @arg $1 string text
 term.color_light_gray() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[37m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[37m%s%s" "$text" "$end"
 }
 
 # @description Construct dark gray color
 # @arg $1 string text
 term.color_dark_gray() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;30m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;30m%s%s" "$text" "$end"
 }
 
 # @description Construct light red color
 # @arg $1 string text
 term.color_light_red() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;31m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;31m%s%s" "$text" "$end"
 }
 
 # @description Construct light green color
 # @arg $1 string text
 term.color_light_green() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;32m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;32m%s%s" "$text" "$end"
 }
 
 # @description Construct yellow color
 # @arg $1 string text
 term.color_yellow() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;33m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;33m%s%s" "$text" "$end"
 }
 
 # @description Construct light blue color
 # @arg $1 string text
 term.color_light_blue() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;34m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;34m%s%s" "$text" "$end"
 }
 
 # @description Construct light purple color
 # @arg $1 string text
 term.color_light_purple() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;35m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;35m%s%s" "$text" "$end"
 }
 
 # @description Construct light cyan color
 # @arg $1 string text
 term.color_light_cyan() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;36m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;36m%s%s" "$text" "$end"
 }
 
 # @description Construct white color
 # @arg $1 string text
 term.color_white() {
-	local {text,end}=
-	case $# in 1) text=$1 ;; 2) text=$2; end=$'\e[0m'; if [ "$1" != '-d' ]; then core.panic 'Invalid flag'; fi ;; *) core.panic 'Invalid argument count' ;; esac
+	unset -v REPLY
 
-	printf -v REPLY "\e[1;37m%s%s" "$text" "$end"
+	local flag_print='no' end=
+	term.private_util_validate_pd 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+	local text="$1"
+
+	term.private_util_set_reply2 "$flag_print" "\e[1;37m%s%s" "$text" "$end"
 }
 
 
@@ -530,7 +838,13 @@ term.color_white() {
 term.beep() {
 	unset -v REPLY
 
-	REPLY=$'\a'
+	local flag_print='no' end=
+	term.private_util_validate_p 1 "$@"
+	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
+	unset -v REPLY_SHIFT
+
+
+	term.private_util_set_reply "$flag_print" $'\a'
 }
 
 
@@ -569,4 +883,3 @@ term.underline() {
 term.strikethrough() {
 	term.style_strikethrough "$@"
 }
-
