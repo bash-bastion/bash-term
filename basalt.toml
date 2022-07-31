@@ -7,7 +7,7 @@ version = '0.3.2'
 authors = ['Edwin Kofler <edwin@kofler.dev>']
 
 [run]
-dependencies = []
+dependencies = ['https://github.com/hyperupcall/bash-core@v0.11.0']
 binDirs = []
 sourceDirs = ['pkg/src/public']
 builtinDirs = []
