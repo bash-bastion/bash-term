@@ -7,8 +7,11 @@ term.private_util_validate_p() {
 	if (($# - 1 > args_excluding_flags)); then
 		core.panic 'Incorrect argument count'
 	elif (($# - 1 == args_excluding_flags)); then
-		if [[ "$1" == -p ]]; then
-			flag_print='yes'
+		if [[ $1 == -?(@(p|P)) ]]; then
+			case $1 in
+				*p*) flag_print='yes' ;;
+				*P*) flag_print='yes-big' ;;
+			esac
 			REPLY_SHIFT=1
 		else
 			core.panic 'Invalid flag'
@@ -23,49 +26,19 @@ term.private_util_validate_pd() {
 	local args_excluding_flags="$1"
 	if ! shift; then core.panic 'Failed to shift'; fi
 
-	if (($# - 2 == args_excluding_flags)); then
-		case $1 in
-			-p) flag_print='yes' ;;
-			-d) end=$'\e[0m' ;;
-			-pd|-dp) flag_print='yes'; end=$'\e[0m' ;;
-			*) core.panic 'Invalid flag' ;;
-		esac
-		case $2 in
-			-p)
-				if [ "$flag_print" = 'yes' ]; then
-					core.panic "Flag '-p' was already specified"
-				fi
-				flag_print='yes'
-				;;
-			-d)
-				if [ -n "$end" ]; then
-					core.panic "Flag '-d' was already specified"
-				fi
+	if (($# - 1 == args_excluding_flags)); then
+		if [[ $1 == -?(d|@(p|P)|d@(p|P)|@(p|P)d) ]]; then
+			case $1 in
+				*p*) flag_print='yes' ;;
+				*P*) flag_print='yes-newline' ;;
+			esac
+			if [[ $1 == *d* ]]; then
 				end=$'\e[0m'
-				;;
-			-pd|-dp)
-				if [ "$flag_print" = 'yes' ]; then
-					core.panic "Flag '-p' was already specified"
-				fi
-				if [ -n "$end" ]; then
-					core.panic "Flag '-d' was already specified"
-				fi
-				flag_print='yes'
-				end=$'\e[0m'
-				;;
-			*)
-				core.panic 'Invalid flag'
-				;;
-		esac
-		REPLY_SHIFT=2
-	elif (($# - 1 == args_excluding_flags)); then
-		case $1 in
-			-p) flag_print='yes' ;;
-			-d) end=$'\e[0m' ;;
-			-pd|-dp) flag_print='yes'; end=$'\e[0m' ;;
-			*) core.panic 'Invalid flag' ;;
-		esac
-		REPLY_SHIFT=1
+			fi
+			REPLY_SHIFT=1
+		else
+			core.panic 'Invalid flag'
+		fi
 	elif (($# > args_excluding_flags)); then
 		core.panic 'Incorrect argument count'
 	else
@@ -79,6 +52,8 @@ term.private_util_set_reply() {
 
 	REPLY="$value"
 	if [ "$flag_print" = 'yes' ]; then
+		printf '%s' "$REPLY"
+	elif [ "$flag_print" = 'yes-newline' ]; then
 		printf '%s\n' "$REPLY"
 	fi
 }
@@ -93,6 +68,8 @@ term.private_util_set_reply2() {
 	# shellcheck disable=SC2059
 	printf -v REPLY "$@"
 	if [ "$flag_print" = 'yes' ]; then
+		printf '%s' "$REPLY"
+	elif [ "$flag_print" = 'yes-newline' ]; then
 		printf '%s\n' "$REPLY"
 	fi
 }

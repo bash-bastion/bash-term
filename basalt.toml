@@ -22,5 +22,6 @@ errexit = 'on'
 pipefail = 'on'
 
 [run.shoptOptions]
+extglob = 'on'
 nullglob = 'on'
 shift_verbose = 'on'
