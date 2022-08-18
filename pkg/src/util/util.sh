@@ -10,7 +10,7 @@ term.private_util_validate_p() {
 		if [[ $1 == -?(@(p|P)) ]]; then
 			case $1 in
 				*p*) flag_print='yes' ;;
-				*P*) flag_print='yes-big' ;;
+				*P*) flag_print='yes-newline' ;;
 			esac
 			REPLY_SHIFT=1
 		else
