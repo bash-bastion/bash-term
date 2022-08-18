@@ -50,16 +50,16 @@ term.private_util_set_reply() {
 	local value="$1"
 
 	REPLY="$value"
-	if [ "$flag_print" = 'yes' ]; then
-		printf '%s' "$REPLY"
-	elif [ "$flag_print" = 'yes-newline' ]; then
-		printf '%s\n' "$REPLY"
-	fi
+	term.private_util_replyprint
 }
 
 term.private_util_set_reply2() {
 	# shellcheck disable=SC2059
 	printf -v REPLY "$@"
+	term.private_util_replyprint
+}
+
+term.private_util_replyprint() {
 	if [ "$flag_print" = 'yes' ]; then
 		printf '%s' "$REPLY"
 	elif [ "$flag_print" = 'yes-newline' ]; then

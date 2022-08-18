@@ -150,7 +150,7 @@ term.cursor_savepos() {
 	else
 		REPLY=$'\e[s'
 	fi
-	[ "$flag_print" = 'yes' ] && printf '%s\n' "$REPLY"
+	term.private_util_replyprint
 }
 
 # @description Restores cursor to the last saved position
@@ -168,7 +168,7 @@ term.cursor_restorepos() {
 	else
 		REPLY=$'\e[u'
 	fi
-	[ "$flag_print" = 'yes' ] && printf '%s\n' "$REPLY"
+	term.private_util_replyprint
 }
 
 # FIXME: docs
