@@ -1,5 +1,6 @@
 [package]
-type = 'bash'
+lang = 'bash'
+type = 'lib'
 name = 'bash-term'
 description = 'Bash library for terminal escape sequences'
 slug = ['term', 'btput']
@@ -9,7 +10,7 @@ authors = ['Edwin Kofler <edwin@kofler.dev>']
 [run]
 dependencies = ['https://github.com/hyperupcall/bash-core@v0.11.0']
 binDirs = []
-sourceDirs = ['pkg/src/public']
+sourceDirs = ['pkg/src/public', 'pkg/src/util']
 builtinDirs = []
 completionDirs = []
 manDirs = []
