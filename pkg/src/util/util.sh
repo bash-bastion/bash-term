@@ -47,8 +47,7 @@ term.private_util_validate_pd() {
 }
 
 term.private_util_set_reply() {
-	local flag_print="$1"
-	local value="$2"
+	local value="$1"
 
 	REPLY="$value"
 	if [ "$flag_print" = 'yes' ]; then
@@ -59,12 +58,6 @@ term.private_util_set_reply() {
 }
 
 term.private_util_set_reply2() {
-	local flag_print="$1"
-
-	if ! shift; then
-		core.panic 'Failed to shift'
-	fi
-
 	# shellcheck disable=SC2059
 	printf -v REPLY "$@"
 	if [ "$flag_print" = 'yes' ]; then

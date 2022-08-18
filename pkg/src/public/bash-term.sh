@@ -19,7 +19,7 @@ term.cursor_to() {
 	local column="${2:-0}"
 
 	# Note that 'f' instead of 'H' is the 'force' variant
-	term.private_util_set_reply2 "$flag_print" '\033[%s;%sH' "$row" "$column"
+	term.private_util_set_reply2 '\033[%s;%sH' "$row" "$column"
 }
 
 # @description Moves cursor position to a supplied _relative_ row and column. Both default to `0` if not supplied (FIXME: implement)
@@ -41,7 +41,7 @@ term.cursor_up() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sA' "$count"
+	term.private_util_set_reply2 '\033[%sA' "$count"
 }
 
 # @description Moves the cursor down. Defaults to `1` if not supplied
@@ -56,7 +56,7 @@ term.cursor_down() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sB' "$count"
+	term.private_util_set_reply2 '\033[%sB' "$count"
 }
 
 # @description Moves the cursor forward. Defaults to `1` if not supplied
@@ -71,7 +71,7 @@ term.cursor_forward() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sC' "$count"
+	term.private_util_set_reply2 '\033[%sC' "$count"
 }
 
 # @description Moves the cursor backwards. Defaults to `1` if not supplied
@@ -86,7 +86,7 @@ term.cursor_backward() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sD' "$count"
+	term.private_util_set_reply2 '\033[%sD' "$count"
 }
 
 # @description Moves the cursor to the next line. Defaults to `1` if not supplied
@@ -101,7 +101,7 @@ term.cursor_line_next() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sE' "$count"
+	term.private_util_set_reply2 '\033[%sE' "$count"
 }
 
 # @description Moves the cursor to the previous line. Defaults to `1` if not supplied
@@ -116,7 +116,7 @@ term.cursor_line_prev() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sF' "$count"
+	term.private_util_set_reply2 '\033[%sF' "$count"
 }
 
 # FIXME: docs
@@ -132,7 +132,7 @@ term.cursor_horizontal() {
 
 	local count="${1:-1}"
 
-	term.private_util_set_reply2 "$flag_print" '\033[%sG' "$count"
+	term.private_util_set_reply2 '\033[%sG' "$count"
 }
 
 # @description Saves the current cursor position
@@ -182,7 +182,7 @@ term.cursor_save() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[7'
+	term.private_util_set_reply $'\e[7'
 }
 
 # FIXME: docs
@@ -196,7 +196,7 @@ term.cursor_restore() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[8'
+	term.private_util_set_reply $'\e[8'
 }
 
 # @description Hides the cursor
@@ -209,7 +209,7 @@ term.cursor_hide() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[?25l'
+	term.private_util_set_reply $'\e[?25l'
 }
 
 # @description Shows the cursor
@@ -223,7 +223,7 @@ term.cursor_show() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[?25h'
+	term.private_util_set_reply $'\e[?25h'
 }
 
 # @description Reports the cursor position to the application as (as though typed at the keyboard)
@@ -236,7 +236,7 @@ term.cursor_getpos() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[6n'
+	term.private_util_set_reply $'\e[6n'
 }
 
 
@@ -256,7 +256,7 @@ term.erase_line_end() {
 	unset -v REPLY_SHIFT
 
 	# Same as '\e[0K'
-	term.private_util_set_reply "$flag_print" $'\e[K'
+	term.private_util_set_reply $'\e[K'
 }
 
 # @description Erase from the current cursor position to the start of the current line
@@ -269,7 +269,7 @@ term.erase_line_start() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[1K'
+	term.private_util_set_reply $'\e[1K'
 }
 
 # @description Erase the entire current line
@@ -282,7 +282,7 @@ term.erase_line() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[2K'
+	term.private_util_set_reply $'\e[2K'
 }
 
 # @description Erase the screen from the current line down to the bottom of the screen
@@ -297,7 +297,7 @@ term.erase_screen_end() {
 	unset -v REPLY_SHIFT
 
 	# Same as '\e[0J'
-	term.private_util_set_reply "$flag_print" $'\e[J'
+	term.private_util_set_reply $'\e[J'
 }
 
 # @description Erase the screen from the current line up to the top of the screen
@@ -310,7 +310,7 @@ term.erase_screen_start() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[1J'
+	term.private_util_set_reply $'\e[1J'
 }
 
 # @description Erase the screen and move the cursor the top left position
@@ -323,7 +323,7 @@ term.erase_screen() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[2J'
+	term.private_util_set_reply $'\e[2J'
 }
 
 # @noargs
@@ -335,7 +335,7 @@ term.erase_saved_lines() { # TODO: better name?
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[3J'
+	term.private_util_set_reply $'\e[3J'
 }
 
 
@@ -354,7 +354,7 @@ term.scroll_down() {
 	unset -v REPLY_SHIFT
 
 	# REPLY=$'\e[T'
-	term.private_util_set_reply "$flag_print" $'\e[D'
+	term.private_util_set_reply $'\e[D'
 }
 
 # @noargs
@@ -367,7 +367,7 @@ term.scroll_up() {
 	unset -v REPLY_SHIFT
 
 	# REPLY=$'\e[S'
-	term.private_util_set_reply "$flag_print" $'\e[M'
+	term.private_util_set_reply $'\e[M'
 }
 
 
@@ -385,7 +385,7 @@ term.tab_set() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[H'
+	term.private_util_set_reply $'\e[H'
 }
 
 # @noargs
@@ -397,7 +397,7 @@ term.tab_clear() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[g'
+	term.private_util_set_reply $'\e[g'
 }
 
 # @noargs
@@ -409,7 +409,7 @@ term.tab_clearall() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[3g'
+	term.private_util_set_reply $'\e[3g'
 }
 
 
@@ -428,7 +428,7 @@ term.screen_save() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[?1049h'
+	term.private_util_set_reply $'\e[?1049h'
 }
 
 # @description Restore screen
@@ -441,7 +441,7 @@ term.screen_restore() {
 	shift "$REPLY_SHIFT" || core.panic 'Failed to shift'
 	unset -v REPLY_SHIFT
 
-	term.private_util_set_reply "$flag_print" $'\e[?1049l'
+	term.private_util_set_reply $'\e[?1049l'
 }
 
 
@@ -477,7 +477,7 @@ term.style_bold() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1m%s%s" "$text" "$end"
 }
 
 # @description Construct dim
@@ -492,7 +492,7 @@ term.style_dim() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[2m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[2m%s%s" "$text" "$end"
 }
 
 # @description Construct italic
@@ -507,7 +507,7 @@ term.style_italic() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[3m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[3m%s%s" "$text" "$end"
 }
 
 # @description Construct underline
@@ -522,7 +522,7 @@ term.style_underline() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[4m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[4m%s%s" "$text" "$end"
 }
 
 # @description Construct inverse
@@ -537,7 +537,7 @@ term.style_inverse() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[7m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[7m%s%s" "$text" "$end"
 }
 
 # @description Construct hidden
@@ -552,7 +552,7 @@ term.style_hidden() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[8m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[8m%s%s" "$text" "$end"
 }
 
 # @description Construct strikethrough
@@ -567,7 +567,7 @@ term.style_strikethrough() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[9m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[9m%s%s" "$text" "$end"
 }
 
 # @description Construct hyperlink
@@ -599,7 +599,7 @@ term.color_black() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[30m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[30m%s%s" "$text" "$end"
 }
 
 # @description Construct red color
@@ -614,7 +614,7 @@ term.color_red() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[31m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[31m%s%s" "$text" "$end"
 }
 
 # @description Construct green color
@@ -629,7 +629,7 @@ term.color_green() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[32m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[32m%s%s" "$text" "$end"
 }
 
 # @description Construct orange color
@@ -644,7 +644,7 @@ term.color_orange() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[33m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[33m%s%s" "$text" "$end"
 }
 
 # @description Construct blue color
@@ -659,7 +659,7 @@ term.color_blue() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[34m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[34m%s%s" "$text" "$end"
 }
 
 # @description Construct purple color
@@ -674,7 +674,7 @@ term.color_purple() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[35m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[35m%s%s" "$text" "$end"
 }
 
 # @description Construct cyan color
@@ -689,7 +689,7 @@ term.color_cyan() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[36m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[36m%s%s" "$text" "$end"
 }
 
 # @description Construct light gray color
@@ -704,7 +704,7 @@ term.color_light_gray() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[37m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[37m%s%s" "$text" "$end"
 }
 
 # @description Construct dark gray color
@@ -719,7 +719,7 @@ term.color_dark_gray() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;30m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;30m%s%s" "$text" "$end"
 }
 
 # @description Construct light red color
@@ -734,7 +734,7 @@ term.color_light_red() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;31m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;31m%s%s" "$text" "$end"
 }
 
 # @description Construct light green color
@@ -749,7 +749,7 @@ term.color_light_green() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;32m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;32m%s%s" "$text" "$end"
 }
 
 # @description Construct yellow color
@@ -764,7 +764,7 @@ term.color_yellow() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;33m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;33m%s%s" "$text" "$end"
 }
 
 # @description Construct light blue color
@@ -779,7 +779,7 @@ term.color_light_blue() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;34m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;34m%s%s" "$text" "$end"
 }
 
 # @description Construct light purple color
@@ -794,7 +794,7 @@ term.color_light_purple() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;35m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;35m%s%s" "$text" "$end"
 }
 
 # @description Construct light cyan color
@@ -809,7 +809,7 @@ term.color_light_cyan() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;36m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;36m%s%s" "$text" "$end"
 }
 
 # @description Construct white color
@@ -824,7 +824,7 @@ term.color_white() {
 
 	local text="$1"
 
-	term.private_util_set_reply2 "$flag_print" "\e[1;37m%s%s" "$text" "$end"
+	term.private_util_set_reply2 "\e[1;37m%s%s" "$text" "$end"
 }
 
 
@@ -844,7 +844,7 @@ term.beep() {
 	unset -v REPLY_SHIFT
 
 
-	term.private_util_set_reply "$flag_print" $'\a'
+	term.private_util_set_reply $'\a'
 }
 
 
