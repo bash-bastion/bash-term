@@ -4,7 +4,7 @@ Bash library for terminal escape sequences
 
 ## Summary
 
-Includes standard ANSI escape sequences and a blazing-fast `tput` called `btput`. The latter is a WIP
+Includes functions to print standard ANSI escape sequences
 
 ## Installation
 

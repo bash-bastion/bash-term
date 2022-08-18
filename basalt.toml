@@ -3,7 +3,7 @@ lang = 'bash'
 type = 'lib'
 name = 'bash-term'
 description = 'Bash library for terminal escape sequences'
-slug = ['term', 'btput']
+slug = ['term']
 version = '0.4.1'
 authors = ['Edwin Kofler <edwin@kofler.dev>']
 
