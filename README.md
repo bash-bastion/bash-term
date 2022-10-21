@@ -35,3 +35,4 @@ term.style_underline -dp "$REPLY"
 - [ANSIcode.html](https://www.real-world-systems.com/docs/ANSIcode.html)
 - [terminalcodes](https://wiki.bash-hackers.org/scripting/terminalcodes)
 - [StackOverflow/20983251](https://stackoverflow.com/a/20983251)
+- [dylanaraps/writing-a-tui-in-bash](https://github.com/dylanaraps/writing-a-tui-in-bash)
