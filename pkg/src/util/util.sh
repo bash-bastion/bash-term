@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-term.private_util_validate_p() {
+term._util_validate_p() {
 	local args_excluding_flags="$1"
 	if ! shift; then core.panic 'Failed to shift'; fi
 
@@ -22,7 +22,7 @@ term.private_util_validate_p() {
 
 }
 
-term.private_util_validate_pd() {
+term._util_validate_pd() {
 	local args_excluding_flags="$1"
 	if ! shift; then core.panic 'Failed to shift'; fi
 
@@ -46,20 +46,20 @@ term.private_util_validate_pd() {
 	fi
 }
 
-term.private_util_set_reply() {
+term._util_set_reply() {
 	local value="$1"
 
 	REPLY="$value"
-	term.private_util_replyprint
+	term._util_replyprint
 }
 
-term.private_util_set_reply2() {
+term._util_set_reply2() {
 	# shellcheck disable=SC2059
 	printf -v REPLY "$@"
-	term.private_util_replyprint
+	term._util_replyprint
 }
 
-term.private_util_replyprint() {
+term._util_replyprint() {
 	if [ "$flag_print" = 'yes' ]; then
 		printf '%s' "$REPLY"
 	elif [ "$flag_print" = 'yes-newline' ]; then
