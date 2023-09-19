@@ -1,9 +1,17 @@
 # shellcheck shell=bash
 
-task.docs() {
-	shdoc < './pkg/src/public/bash-term.sh' > './docs/bash-term.md'
+task.test() {
+	bats tests
+}
+
+task.format() {
+	shfmt -w -ln bash -sr ./pkg ./Bakefile.sh
 }
 
 task.lint() {
-	shfmt -w -ln bash -sr ./pkg ./Bakefile.sh
+	shellcheck ./pkg/**/*.sh
+}
+
+task.docs() {
+	shdoc < './pkg/src/public/bash-term.sh' > './docs/bash-term.md'
 }

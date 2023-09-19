@@ -8,7 +8,10 @@ version = '0.6.3'
 authors = ['Edwin Kofler <edwin@kofler.dev>']
 
 [run]
-dependencies = ['https://github.com/hyperupcall/bash-core@v0.11.0']
+dependencies = [
+	'https://github.com/hyperupcall/bash-core@v0.11.0',
+	'https://github.com/hyperupcall/bats-all.git@v4.1.0',
+]
 binDirs = []
 sourceDirs = ['pkg/src/public', 'pkg/src/util']
 builtinDirs = []

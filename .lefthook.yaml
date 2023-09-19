@@ -1,0 +1,6 @@
+pre-commit:
+  commands:
+    test:
+      run: './bake test'
+    lint:
+      run: './bake lint'
