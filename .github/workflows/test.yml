@@ -1,0 +1,16 @@
+name: 'Test'
+
+on:
+  push:
+    branches-ignore: ['*-no-ci']
+  pull_request:
+    branches-ignore: ['*-no-ci']
+
+permissions:
+  contents: 'read'
+  pages: 'write'
+  id-token: 'write'
+
+jobs:
+  build:
+    uses: 'fox-land/hyperupcall-action/.github/workflows/test.yml@cdde84c32fa05734584e9387c25656009bfc5fd1'
