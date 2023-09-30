@@ -1,4 +1,4 @@
-name: 'Test'
+name: 'Website'
 
 on:
   push:
@@ -12,6 +12,6 @@ permissions:
   id-token: 'write'
 
 jobs:
-  bash:
-    name: 'Bash'
-    uses: 'fox-land/hyperupcall-action/.github/workflows/bash-test.yml@main'
+  build-and-deploy:
+    name: 'Build And Deploy'
+    uses: 'fox-land/hyperupcall-action/.github/workflows/website.yml@main'
