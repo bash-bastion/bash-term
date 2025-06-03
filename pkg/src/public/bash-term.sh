@@ -323,7 +323,7 @@ term.erase_screen() {
 }
 
 # @noargs
-term.erase_saved_lines() { # TODO: better name?
+term.erase_saved_lines() {
 	unset -v REPLY
 
 	local flag_print='no' end=
