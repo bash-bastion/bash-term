@@ -13,7 +13,7 @@ dependencies = [
 	'https://github.com/hyperupcall/bats-all.git@v4.1.0',
 ]
 binDirs = []
-sourceDirs = ['pkg/src/public', 'pkg/src/util']
+sourceDirs = ["pkg"]
 builtinDirs = []
 completionDirs = []
 manDirs = []
